@@ -10,11 +10,11 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const db = process.env.ATLAS_URI;
-
+// const db = process.env.ATLAS_URI;
+const db = process.env.MONGODB_URI;
 // Connect to Mongo
 mongoose
-  .connect(db, { 
+  .connect(process.env.MONGODB_URI || db, { 
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
