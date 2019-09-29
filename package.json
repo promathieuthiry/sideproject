@@ -5,8 +5,11 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
-
+    "client-install": "npm install --prefix client",
+    "start": "cross-env NODE_ENV=production MONGO_URL=mongodb://mathieu:eAESH708ilbaJAUq@ds259258.mlab.com:59258/heroku_0jz0t2k4 node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"  
   },
   "keywords": [],
   "author": "",
