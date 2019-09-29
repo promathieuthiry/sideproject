@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
-const path = require("path")
+const path = require('path')
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -30,15 +30,17 @@ app.use('/projects', projectsRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 
-// Serve static assests if in production
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static('client/build'));
+//Static file declaration
+app.use(express.static(path.join(__dirname, 'client/build')));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
+//production mode
+if(process.env.NODE_ENV === 'production') {  app.use(express.static(path.join(__dirname, 'client/build')));  
+app.get('*', (req, res) => {    res.sendfile(path.join(__dirname = 'client/build/index.html'));  })}
+
+//build mode
+app.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
+
+
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
