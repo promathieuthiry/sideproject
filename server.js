@@ -6,7 +6,7 @@ const path = require('path')
 const helmet = require('helmet')
 
 
-app.use(express.json()); 
+const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors());
