@@ -6,7 +6,7 @@ const path = require('path')
 const helmet = require('helmet')
 
 
-app.use(express.json({ limit: '300kb' })); // body-parser defaults to a body size limit of 100kb
+app.use(express.json()); 
 const port = process.env.PORT || 5000;
 
 app.use(cors());
