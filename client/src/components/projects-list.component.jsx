@@ -15,7 +15,7 @@ export default class ProjectsList extends Component {
     projects: [],
     loading: true,
     token: localStorage.getItem('token'),
-    isAuthenticated: null,
+    isAuthenticated: false,
     isLoading: false,
     user: ''
   }
