@@ -10,10 +10,11 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const db = process.env.ATLAS_URI;
+// const db = process.env.ATLAS_URI;
+const dbMlab =`mongodb://mathieu:eAESH708ilbaJAUq@ds145263.mlab.com:45263/heroku_cwmb89r3`
 // Connect to Mongo
 mongoose
-  .connect( db, { 
+  .connect( dbMlab, { 
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
