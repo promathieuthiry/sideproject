@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
 import axios from 'axios';
+import './login.css';
 
-import { Modal, Alert, Icon, Divider, Button, 
+import { Modal, Alert, Icon, Divider, Button, Container,
   Form, FormGroup, FormControl, ControlLabel} from 'rsuite';
 
 // Config
@@ -148,80 +149,39 @@ export default class Login extends Component {
         </Modal>
         </div>
         }
-        <Button onClick={this.open}>Discover</Button>
 
-{/* <Container>
-  <Content>
-    <FlexboxGrid justify="center">
-      <FlexboxGrid.Item colspan={12}>
-        <Panel header={<h3>SignUp</h3>} bordered>
-          <Form 
-          fluid
-          onChange={this.handleChange}
-          formValue={formValue}
-          >
-            <FormGroup>
-                <ControlLabel>Username</ControlLabel>
-                <FormControl name="name" />
-              </FormGroup>
-            <FormGroup>
-              <ControlLabel>email address</ControlLabel>
-              <FormControl name="email" type="email" />
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Password</ControlLabel>
-              <FormControl name="password" type="password" />
-            </FormGroup>
-          </Form>
-          <br />
-          <Button onClick={this.onRegister} block appearance="primary">
-          SignUp
-        </Button>
-      <Divider></Divider>
-      <Button onClick={this.getRegistrationOff} block appearance="link">
-          <Icon icon='hand-o-left' />&nbsp;Retour à la connexion
-            </Button> 
-        </Panel>
-      </FlexboxGrid.Item>
-    </FlexboxGrid>
-  </Content>
-</Container> */}
-
-  {/* <div className="login-page">
-    <Container>
-      <Content>
-        <FlexboxGrid justify="center">
-          <FlexboxGrid.Item colspan={12}>
-            <Panel header={<h3>Login</h3>} bordered>
-              <Form 
-              fluid
-              onChange={this.handleChange}
-              formValue={formValue}
-              >
-                <FormGroup>
-                  <ControlLabel>email address</ControlLabel>
-                  <FormControl name="email" type="email" />
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>Password</ControlLabel>
-                  <FormControl name="password" type="password" />
-                </FormGroup>
-              </Form>
-              <br />
-              <Button onClick={this.onLogin} block appearance="primary">
-              Login
-            </Button>
-          <Divider>Don't have an account?</Divider>
-          <Button onClick={this.getRegistration} block appearance="ghost">
-              Sign Up
-            </Button>
-            </Panel>
-          </FlexboxGrid.Item>
-        </FlexboxGrid>
-      </Content>
-    </Container>
-  </div> */}
-
+        {/* Présentation home */}
+        <Container>
+            <div >
+     </div>
+     <div class="container">
+  <nav class="navbar">
+      <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><button className="loginButton" onClick={this.open}>LOGIN</button></li>
+        </ul>
+      </nav>
+  <section id="home">
+    <h1>Welcome To <span className="yellow">SideProjectJS</span></h1>
+    <p class="lead">YOUR LATEST IDEA COULD BE HUGE <span role="img" aria-label="Rocket">🚀</span></p>
+    <p class="lead">USE OUR SERVICES SO YOU WON’T FORGET IT</p>
+    <div class="button_cont" align="center"><a className="buttonDiscover" 
+    href="#about" rel="nofollow noopener">DISCOVER</a></div>
+  </section>
+  <section id="about">
+     <h3>
+     If you don't write it down, you will forget </h3>
+      {/* <p class="leadAbout">It’s quite frustrating when you have a great idea — but you don’t write it down.  Then later, when you actually have time to think about it, you can’t remember what it was.</p> */}
+  </section>
+  <section id="service">
+      <h1>WRITE IT DOWN!</h1>
+      <p class="lead">Use our amazing interface to keep tracks of your best ideas!</p>
+  </section>
+</div>
+<footer className="footerHome">Made by <a href="https://github.com/promathieuthiry" 
+target="_blank" rel="noopener noreferrer">Mathieu T</a></footer>
+        </Container>
       </div>
     );
   }

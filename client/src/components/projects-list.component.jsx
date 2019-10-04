@@ -7,6 +7,9 @@ import ProjectPresentator from './projects-presentator.component'
 import CreateProjects from './create-projects.component'
 
 import authHelper from '../helpers/auth'
+import { Container } from 'rsuite';
+import './login.css';
+
 
 
 export default class ProjectsList extends Component {
@@ -49,15 +52,28 @@ export default class ProjectsList extends Component {
     const {isAuthenticated, isLoading, user, projects} = this.state
     return (
     <div>
-      {isAuthenticated ? 
+      {isAuthenticated ?
+      <div>
       <NavbarComponent logout={this.logout} />
-      : <Login updateStateLogin={this.updateStateLogin} isAuthenticated={isAuthenticated}
+      <h1>Connecté, user: {user.name} </h1>
+      <CreateProjects user={user} projects={projects} updateProjects={this.updateProjects}/>
+      {this.projectList()}
+      </div> 
+      : 
+      <div>
+        <Container>
+          {/* <div className="cover"> */}
+          {/* <img className='cover2' src={Cover} alt='cover'/>> */}
+        <Login updateStateLogin={this.updateStateLogin} isAuthenticated={isAuthenticated}
       isLoading={isLoading} user={user} authentificate={this.authentificate} failure={this.failure} />
+      {/* </div> */}
+      </Container>
+      </div>
     }
       
-      {isAuthenticated && <h1>Connecté, user: {user.name} </h1>}
+      {/* {isAuthenticated && <h1>Connecté, user: {user.name} </h1>}
       <CreateProjects user={user} projects={projects} updateProjects={this.updateProjects}/>
-            { this.projectList()}
+            { this.projectList()} */}
     </div>
     );
   }

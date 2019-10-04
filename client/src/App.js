@@ -10,7 +10,6 @@ function App() {
   return (
     <Router>
       <div className="container">
-      <br/>
       <Route path="/" exact component={ProjectsList} />
       <Route path="/connection" component={Login} />
       <Route path="/edit/:id" component={EditProjects}/>
