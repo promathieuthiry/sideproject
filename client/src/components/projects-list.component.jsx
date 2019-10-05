@@ -62,11 +62,8 @@ export default class ProjectsList extends Component {
       : 
       <div>
         <Container>
-          {/* <div className="cover"> */}
-          {/* <img className='cover2' src={Cover} alt='cover'/>> */}
         <Login updateStateLogin={this.updateStateLogin} isAuthenticated={isAuthenticated}
       isLoading={isLoading} user={user} authentificate={this.authentificate} failure={this.failure} />
-      {/* </div> */}
       </Container>
       </div>
     }

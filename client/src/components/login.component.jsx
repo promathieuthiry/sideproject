@@ -163,15 +163,15 @@ export default class Login extends Component {
         </ul>
       </nav>
   <section id="home">
-    <h1>Welcome To <span className="yellow">SideProjectJS</span></h1>
-    <p class="lead">YOUR LATEST IDEA COULD BE HUGE <span role="img" aria-label="Rocket">🚀</span></p>
-    <p class="lead">USE OUR SERVICES SO YOU WON’T FORGET IT</p>
+    <h1>WELCOME TO <span className="yellow">SIDEPROJECTJS</span></h1>
+    <p class="lead">Your latest idea could be huge <span role="img" aria-label="Rocket">🚀</span></p>
+    <p class="lead">Use our services so you won't forget it</p>
     <div class="button_cont" align="center"><a className="buttonDiscover" 
     href="#about" rel="nofollow noopener">DISCOVER</a></div>
   </section>
   <section id="about">
-     <h3>
-     If you don't write it down, you will forget </h3>
+     <h1>
+     If you don't write it down, you will forget </h1>
       {/* <p class="leadAbout">It’s quite frustrating when you have a great idea — but you don’t write it down.  Then later, when you actually have time to think about it, you can’t remember what it was.</p> */}
   </section>
   <section id="service">
