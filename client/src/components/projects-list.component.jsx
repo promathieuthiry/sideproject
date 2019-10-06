@@ -25,8 +25,9 @@ export default class ProjectsList extends Component {
   }
 
   componentDidMount() {
-    this.authentificate()
     this.getProjectfromMongoDB()
+    this.authentificate()
+
   }
 
   deleteProject = async id => {
@@ -139,12 +140,12 @@ export default class ProjectsList extends Component {
    /* *************** */
 
     getProjectfromMongoDB = async () => {
-      const response = await axios.get('http://localhost:5000/projects/')
       // const id = response.data[0].user.id
       // debugger
       // const a = response.data.filter(item => item.user.id == id)
       // console.log(a)
       try {
+        const response = await axios.get('http://localhost:5000/projects/')
         this.setState({ projects: response.data, loading: false })
         console.log(this.state.projects)
       } 
