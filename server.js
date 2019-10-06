@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(helmet())
-app.use(helmet.referrerPolicy({ policy: 'same-origin' }))
+// app.use(helmet.referrerPolicy({ policy: 'same-origin' }))
 app.use(helmet.featurePolicy({features: { notifications: ["'none'"]}}))
 
 
