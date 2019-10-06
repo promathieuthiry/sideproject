@@ -12,7 +12,8 @@ const tokenConfig = getStateToken => {
     // Headers
     const config = {
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       }
     };
     // If token, add to headers
