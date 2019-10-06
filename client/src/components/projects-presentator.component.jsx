@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { PanelGroup, Panel, FlexboxGrid, IconButton, Icon } from 'rsuite';
+import { FlexboxGrid, IconButton, Icon, Container } from 'rsuite';
+import './create-project.css'
 
 export default class ProjectPresentator extends Component {
 
@@ -9,21 +10,20 @@ export default class ProjectPresentator extends Component {
     const {projects, deleteProject} = this.props
     return (
 <div>
-<FlexboxGrid justify="center">
-  <FlexboxGrid.Item colspan={12}>
-<PanelGroup accordion bordered>
-    <Panel header={projects.title} >
-      <p>{projects.description}</p>
-      <Link to={"/edit/"+projects._id}>edit</Link> 
-
-      <IconButton icon={<Icon icon="trash2" />} circle size="md" 
-      onClick={() => deleteProject(projects._id)}/>
-    </Panel>
-  </PanelGroup>
-  <br />
-  <br />
-  </FlexboxGrid.Item>
-  </FlexboxGrid>
+  <Container>
+  <div id="mslist">
+  <fieldset id={projects.title}>
+  <FlexboxGrid justify="space-between">
+      <FlexboxGrid.Item colspan={18}><h2 class="fs-title">{projects.title}</h2></FlexboxGrid.Item>
+      <Link to={"/edit/"+projects._id}> <FlexboxGrid.Item colspan={2}><IconButton icon={<Icon icon="edit"/>} circle size="sm" />
+      </FlexboxGrid.Item></Link> 
+      <FlexboxGrid.Item colspan={2}><IconButton icon={<Icon icon="trash2"/>} circle size="sm" 
+      onClick={() => deleteProject(projects._id)}/></FlexboxGrid.Item>
+    </FlexboxGrid>
+    <h3 class="fs-subtitle">{projects.description}</h3>
+  </fieldset>
+</div>
+</Container>
 </div>
     );
   }

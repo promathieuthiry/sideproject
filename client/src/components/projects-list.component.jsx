@@ -7,7 +7,7 @@ import ProjectPresentator from './projects-presentator.component'
 import CreateProjects from './create-projects.component'
 
 import authHelper from '../helpers/auth'
-import { Container } from 'rsuite';
+import { Container, Header, Footer, Sidebar, Content } from 'rsuite';
 import './login.css';
 
 
@@ -20,12 +20,13 @@ export default class ProjectsList extends Component {
     token: localStorage.getItem('token'),
     isAuthenticated: false,
     isLoading: false,
-    user: ''
+    user: '',
+    isCreateProjectOpened: false
   }
 
   componentDidMount() {
-    this.getProjectfromMongoDB()
     this.authentificate()
+    this.getProjectfromMongoDB()
   }
 
   deleteProject = async id => {
@@ -49,28 +50,30 @@ export default class ProjectsList extends Component {
   }
 
   render() {
-    const {isAuthenticated, isLoading, user, projects} = this.state
+    const {isAuthenticated, isLoading, user, projects, isCreateProjectOpened} = this.state
     return (
-    <div>
+    <div className="dashboard">
       {isAuthenticated ?
       <div>
-      <NavbarComponent logout={this.logout} />
-      <h1>Connecté, user: {user.name} </h1>
-      <CreateProjects user={user} projects={projects} updateProjects={this.updateProjects}/>
+        <Container>
+         <Header> <NavbarComponent logout={this.logout} user={user} displayAddProject={this.displayAddProject}/> </Header>
+          <Container>
+            <br />
+            <br />
+      {isCreateProjectOpened && <CreateProjects user={user} projects={projects} 
+      updateProjects={this.updateProjects} closeAddProject={this.closeAddProject}/>}
+      </Container>
+      <h1 className="projectListName">Project List</h1>
       {this.projectList()}
+      <Footer>Footer</Footer>
+      </Container>
       </div> 
       : 
       <div>
-        <Container>
         <Login updateStateLogin={this.updateStateLogin} isAuthenticated={isAuthenticated}
       isLoading={isLoading} user={user} authentificate={this.authentificate} failure={this.failure} />
-      </Container>
       </div>
     }
-      
-      {/* {isAuthenticated && <h1>Connecté, user: {user.name} </h1>}
-      <CreateProjects user={user} projects={projects} updateProjects={this.updateProjects}/>
-            { this.projectList()} */}
     </div>
     );
   }
@@ -92,6 +95,14 @@ export default class ProjectsList extends Component {
       token: payload.token,
       user: payload.user
     })
+  }
+
+  displayAddProject = () => {
+    this.setState({isCreateProjectOpened: true})
+  }
+
+  closeAddProject = () => {
+    this.setState({isCreateProjectOpened: false})
   }
 
   // Authentification => Check token & load user
@@ -117,7 +128,7 @@ export default class ProjectsList extends Component {
     isLoading: false
   })}
 
-    logout
+    // logout
   logout = () => {
     this.failure()
     document.location.reload(true)}
@@ -129,6 +140,10 @@ export default class ProjectsList extends Component {
 
     getProjectfromMongoDB = async () => {
       const response = await axios.get('http://localhost:5000/projects/')
+      // const id = response.data[0].user.id
+      // debugger
+      // const a = response.data.filter(item => item.user.id == id)
+      // console.log(a)
       try {
         this.setState({ projects: response.data, loading: false })
         console.log(this.state.projects)

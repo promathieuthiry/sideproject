@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
-import { Nav, Navbar, Icon } from 'rsuite';
+import { Nav, Navbar, Icon, Dropdown } from 'rsuite';
 
 export default class NavbarComponent extends Component {
 
   render() {
-    const NavLink = props => 
-    <Nav.Item componentClass={Link} {...props} />;
+    const {user, displayAddProject, logout} = this.props
     return (
 <nav>
   <Navbar>
     <Navbar.Body>
       <Nav pullLeft>
-      <NavLink to="/" icon={<Icon icon="home" />}>Javascript Project</NavLink>
+        <Nav.Item  icon={<Icon icon="user-circle-o"/>}>Welcome {user.name}</Nav.Item>
       </Nav>
       <Nav pullRight>
-        <NavLink to="/create" icon={<Icon icon="plus"/>}>Add Project</NavLink>
-        <NavLink to="/" onSelect={this.props.logout}>Logout</NavLink>
+        <Nav.Item  to="/create" onClick={displayAddProject} icon={<Icon icon="plus"/>}>Add Project</Nav.Item>
+        <Dropdown title="User">
+        <Dropdown.Item>Edit</Dropdown.Item>
+        <Dropdown.Item onSelect={logout}>Logout</Dropdown.Item>
+        </Dropdown>
       </Nav>
     </Navbar.Body>
   </Navbar>

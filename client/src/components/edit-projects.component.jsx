@@ -1,22 +1,32 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import NavbarComponent from './navbar.component'
+import { Container } from 'rsuite';
+// Helpers
+import authHelper from '../helpers/auth'
 
 export default class EditProjects extends Component {
 
   state = {
     title: '',
     description: '',
-    users: []
+    user: {
+      id: '',
+      name: ''
     }
+  }
 
   componentDidMount() {
     axios.get('http://localhost:5000/projects/'+this.props.match.params.id)
       .then(response => {
+        console.log(response.data)
         this.setState({
           title: response.data.title,
           description: response.data.description,
+          user: {
+            id: response.data.user.id, 
+            name: response.data.user.name
+         }
         })   
       })
       .catch(function (error) {
@@ -24,49 +34,52 @@ export default class EditProjects extends Component {
       })
   }
 
-  onChangeTitle = e => {
-    this.setState({
-        title: e.target.value
-    })
-}
+  handleInputChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  }
 
-onChangeDescription = (e) => {
-    this.setState({
-        description: e.target.value
-    })
-}
-
-  onSubmit = e => {
+  onSubmit = async e => {
     e.preventDefault()
-    const { title, description } = this.state
-    const project = {
-        title: title, description: description }
-    axios.post('http://localhost:5000/projects/update/' + this.props.match.params.id, project)
-      .then(res => console.log(res.data));
-    window.location = '/';
+    const { title, description, user } = this.state
+    try {
+      const token  = localStorage.getItem('token')
+      const config = authHelper.tokenConfig(token)
+      const project = {
+        title: title, 
+        description: description, 
+        user: {
+          id: user._id, 
+          name: user.name
+       } }
+       await axios.put('http://localhost:5000/projects/update/'+this.props.match.params.id, project, config)
+      window.location = '/';
+    } catch(error){
+      console.error(error);
+      window.location = '/';
+    }
+   
   }
 
   render() {
+    const {title, description} = this.state
     return (
-    <div>
-      <NavbarComponent />
-
-      <h3>Edit Project</h3>
-      <form onSubmit={this.onSubmit}>
-        <input
-        onChange={(e) => this.onChangeTitle(e)}
-        value={this.state.title}
-        placeholder="Title"
-        ></input>
-
-      <input
-        onChange={this.onChangeDescription}
-        placeholder="Description"
-        value={this.state.description}
-        ></input>
-
-        <button type="submit" >Create</button>
-      </form>
+    <div className="editProjetContainer">
+      <Container>
+  <form id="msform">
+  {/* <!-- fieldsets --> */}
+  <fieldset>
+    <h2 className="fs-title">EDIT PROJECT: {title}</h2>
+    <label className="labelEditProject">Title
+      <input type="text" name="title" placeholder="Title" value={title} onChange={this.handleInputChange}/>
+      </label>
+      <label className="labelEditProject">Description
+    <input type="text" name="description" placeholder="Description" value={description} onChange={this.handleInputChange}/>
+    </label>
+    <input type="button" name="next" class="next action-button" value="UPDATE" onClick={this.onSubmit}/>
+  </fieldset>
+  
+</form>
+</Container>
     </div>
     )
   }

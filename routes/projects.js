@@ -39,7 +39,7 @@ router.route('/:id').get((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
   });
   
-  router.route('/update/:id').put((req, res) => {
+  router.route('/update/:id').put(auth, (req, res) => {
     Projects.findById(req.params.id)
       .then(item => {
         item.title = req.body.title;
