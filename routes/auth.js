@@ -41,6 +41,7 @@ router.route('/').post((req, res) => {
         }
       )
               })
+              .catch(err => res.status(400).json('Error: ' + err));
               })
             })
 
@@ -50,7 +51,8 @@ router.route('/').post((req, res) => {
 router.get('/user', auth, (req, res) => {
     User.findById(req.user.id)
       .select('-password')
-      .then(user => res.json(user));
+      .then(user => res.json(user))
+      .catch(err => res.status(400).json(`Erreur d'authentification` + err));
   });
   
 
