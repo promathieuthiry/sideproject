@@ -15,7 +15,7 @@ app.use(helmet())
 // app.use(helmet.referrerPolicy({ policy: 'same-origin' }))
 // app.use(helmet.featurePolicy({features: { notifications: ["'none'"]}}))
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://sideprojectjs.herokuapp.com");
+  res.header("Access-Control-Allow-Origin", "http://localhost:5000");
   res.header("Access-Control-Allow-Credentials", "true")
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
