@@ -16,10 +16,16 @@ app.use(helmet())
 // app.use(helmet.featurePolicy({features: { notifications: ["'none'"]}}))
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS,PUT,DELETE');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
+app.options('*', function (req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  res.end();
+});
 // const db = process.env.ATLAS_URI;
 const dbMlab =process.env.MONGODB_URI
 // Connect to Mongo
