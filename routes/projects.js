@@ -11,15 +11,13 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post( (req, res) => {
-  const {title, description} = req.body
+  const {title, description, userID, userName} = req.body
 
   const newProjects = new Projects({
     title,
     description,
-    user: {
-      id: req.body.user.id,
-      name: req.body.user.name
-    }
+    userID, 
+    userName
   });
 
   newProjects.save()
@@ -44,10 +42,8 @@ router.route('/:id').get((req, res) => {
       .then(item => {
         item.title = req.body.title;
         item.description = req.body.description;
-        item.user =  {
-          id: req.body.user.id,
-          name: req.body.user.name
-        }
+        item.userID = req.body.userID;
+        item.userName = req.body.userName
   
         item.save()
           .then(() => res.json('Project updated!'))

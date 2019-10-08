@@ -11,7 +11,9 @@ export default class CreateProjects extends Component {
 
   state = {
       title: '',
-      description: ''
+      description: '',
+      userID: this.props.user._id,
+      userName: this.props.user.name
     }
 
     handleInputChange = (event) => {
@@ -20,16 +22,17 @@ export default class CreateProjects extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault()
-        const { user, projects, updateProjects } = this.props
+        const { projects, updateProjects } = this.props
         try {
           const token  = localStorage.getItem('token')
           const config = authHelper.tokenConfig(token)
-          const { title, description } = this.state
-          const project = { title: title, description: description, 
-            user: {
-              id: user._id, 
-              name: user.name
-           } }
+          const { title, description, userID, userName } = this.state
+          const project = { 
+            title: title, 
+            description: description, 
+            userID: userID,
+            userName: userName
+           }
            await axios.post('http://localhost:5000/projects/add', project, config)
            projects.push(project)
            updateProjects(projects)

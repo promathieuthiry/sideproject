@@ -10,10 +10,8 @@ export default class EditProjects extends Component {
   state = {
     title: '',
     description: '',
-    user: {
-      id: '',
-      name: ''
-    }
+    userID: '',
+    userName: ''
   }
 
   componentDidMount() {
@@ -23,10 +21,9 @@ export default class EditProjects extends Component {
         this.setState({
           title: response.data.title,
           description: response.data.description,
-          user: {
-            id: response.data.user.id, 
-            name: response.data.user.name
-         }
+          userID: response.data.userID,
+          userName: response.data.userName
+         
         })   
       })
       .catch(function (error) {
@@ -40,17 +37,16 @@ export default class EditProjects extends Component {
 
   onSubmit = async e => {
     e.preventDefault()
-    const { title, description, user } = this.state
+    const { title, description, userID, userName} = this.state
     try {
       const token  = localStorage.getItem('token')
       const config = authHelper.tokenConfig(token)
       const project = {
         title: title, 
         description: description, 
-        user: {
-          id: user._id, 
-          name: user.name
-       } }
+        userID: userID,
+        userName: userName
+       }
        await axios.put('http://localhost:5000/projects/update/'+this.props.match.params.id, project, config)
       window.location = '/';
     } catch(error){

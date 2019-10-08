@@ -7,7 +7,7 @@ import ProjectPresentator from './projects-presentator.component'
 import CreateProjects from './create-projects.component'
 
 import authHelper from '../helpers/auth'
-import { Container, Header, Footer, Sidebar, Content } from 'rsuite';
+import { Container, Header } from 'rsuite';
 import './login.css';
 
 
@@ -25,9 +25,7 @@ export default class ProjectsList extends Component {
   }
 
   componentDidMount() {
-    this.getProjectfromMongoDB()
     this.authentificate()
-
   }
 
   deleteProject = async id => {
@@ -66,13 +64,12 @@ export default class ProjectsList extends Component {
       </Container>
       <h1 className="projectListName">Project List</h1>
       {this.projectList()}
-      <Footer>Footer</Footer>
       </Container>
       </div> 
       : 
       <div>
         <Login updateStateLogin={this.updateStateLogin} isAuthenticated={isAuthenticated}
-      isLoading={isLoading} user={user} authentificate={this.authentificate} failure={this.failure} />
+      isLoading={isLoading} user={user} getProjectfromMongoDB={this.getProjectfromMongoDB} failure={this.failure} />
       </div>
     }
     </div>
@@ -114,6 +111,8 @@ export default class ProjectsList extends Component {
     const res =  await axios.get('http://localhost:5000/auth/user', config)
     const user= res.data
     this.setState({isAuthenticated: true, isLoading: false, user })
+    await this.getProjectfromMongoDB()
+
     } catch(error) {
       console.error(error);
       this.failure()
@@ -130,24 +129,30 @@ export default class ProjectsList extends Component {
   })}
 
     // logout
-  logout = () => {
-    this.failure()
-    document.location.reload(true)}
+  logout = () => { this.failure() }
 
   
    /* *************** */
    /*    FETCH        */
    /* *************** */
 
+  isFiltered = (name, array, newarray) => {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].userName === name) {
+         newarray.push(array[i])
+      }
+    }
+  }
+
     getProjectfromMongoDB = async () => {
-      // const id = response.data[0].user.id
-      // debugger
-      // const a = response.data.filter(item => item.user.id == id)
-      // console.log(a)
+      
       try {
+        const newarray = []
+        const name = this.state.user.name
         const response = await axios.get('http://localhost:5000/projects/')
-        this.setState({ projects: response.data, loading: false })
-        console.log(this.state.projects)
+        const data = response.data
+        this.isFiltered(name, data, newarray)
+        this.setState({ projects: newarray, loading: false })
       } 
       catch (error) {
         this.setState({ loading: false })

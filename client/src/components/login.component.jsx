@@ -44,8 +44,8 @@ export default class Login extends Component {
       const payload = res.data
       this.props.updateStateLogin(payload)
       localStorage.setItem('token', payload.token);
-      this.setState({ redirection: true })
       this.close()
+      this.props.getProjectfromMongoDB() 
       } catch (error) {
         const { failure } = this.props
         failure()
@@ -64,6 +64,7 @@ export default class Login extends Component {
       this.props.updateStateLogin(payload)
       localStorage.setItem('token', payload.token)
       this.close()
+      this.props.getProjectfromMongoDB() 
       } catch(error) {
         const { failure } = this.props
         failure()

@@ -15,10 +15,12 @@ export default class NavbarComponent extends Component {
       </Nav>
       <Nav pullRight>
         <Nav.Item  to="/create" onClick={displayAddProject} icon={<Icon icon="plus"/>}>Add Project</Nav.Item>
-        <Dropdown title="User">
+        <Nav.Item  onClick={logout}>Logout</Nav.Item>
+
+        {/* <Dropdown title="User">
         <Dropdown.Item>Edit</Dropdown.Item>
         <Dropdown.Item onSelect={logout}>Logout</Dropdown.Item>
-        </Dropdown>
+        </Dropdown> */}
       </Nav>
     </Navbar.Body>
   </Navbar>
